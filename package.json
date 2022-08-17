@@ -1,5 +1,5 @@
 {
-  "version": "0.0.2",
+  "version": "0.0.3",
   "name": "@oasis-engine/react-dnd",
   "browser": "dist/react-dnd.umd.js",
   "module": "dist/index.js",
