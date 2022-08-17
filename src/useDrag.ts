@@ -1,5 +1,5 @@
-import { useContext, useEffect, useRef } from "react";
-import { DragContext } from "./DragContext";
+import { RefObject, useContext, useEffect, useRef } from "react";
+import { DragContext, DragState } from "./DragContext";
 
 export interface IDragOptions<T> {
   /**
@@ -18,14 +18,20 @@ export interface IDragOptions<T> {
    * The callback that is called when the item is start.
    */
   onStart?: (e: DragEvent, item: T | undefined) => void;
+  /**
+   * The callback that is called when the drag is canceled.
+   */
+  onCancel?: (e: DragEvent, item: T | undefined) => void;
 }
 
-type IDragReturnType = [React.RefObject<HTMLDivElement>, React.RefObject<HTMLDivElement>];
+type IDragElement = RefObject<any>;
+
+type IDragReturnType = [IDragElement, IDragElement];
 
 export function useDrag<T>(options: IDragOptions<T>): IDragReturnType {
   const dragRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
-  const { type, item, onEnd, onStart } = options;
+  const { type, item, onEnd, onStart, onCancel } = options;
 
   const dragItem = useContext(DragContext);
 
@@ -43,10 +49,10 @@ export function useDrag<T>(options: IDragOptions<T>): IDragReturnType {
       const dataTransfer = e.dataTransfer!;
       dataTransfer.effectAllowed = "move";
 
-      dragItem.current = {
-        type,
-        item
-      };
+      const { current } = dragItem;
+      current.state = DragState.Dragging;
+      current.type = type;
+      current.item = item;
 
       if (previewRef.current) {
         dataTransfer.setDragImage(previewRef.current, 0, 0);
@@ -60,6 +66,13 @@ export function useDrag<T>(options: IDragOptions<T>): IDragReturnType {
     const handleDragEnd = (e: DragEvent) => {
       e.preventDefault();
       e.stopImmediatePropagation();
+      const { current } = dragItem;
+      if (current.state !== DragState.Dropped) {
+        current.state = DragState.Cancelled;
+        if (onCancel) {
+          onCancel(e, item);
+        }
+      }
       if (onEnd) {
         onEnd(e, item);
       }

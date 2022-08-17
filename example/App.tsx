@@ -54,6 +54,7 @@ export function App() {
         Start editing to see some magic happen :)
       </p>
       <p ref={previewRef}>my preview</p>
+      <canvas></canvas>
     </div>
   );
 }

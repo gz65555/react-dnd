@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { DragContext } from "./DragContext";
+import { DragContext, DragState } from "./DragContext";
 
 export interface IDropOptions<T> {
   /**
@@ -25,7 +25,7 @@ export interface IDropOptions<T> {
 }
 
 export function useDrop(options: IDropOptions<any>) {
-  const dropRef = React.createRef<HTMLDivElement>();
+  const dropRef = React.createRef<any>();
 
   const dragItem = React.useContext(DragContext);
 
@@ -70,6 +70,7 @@ export function useDrop(options: IDropOptions<any>) {
 
     const handleDrop = (e: DragEvent) => {
       if (accept & dragItem.current.type) {
+        dragItem.current.state = DragState.Dropped;
         e.preventDefault();
         e.stopImmediatePropagation();
         if (onDrop) {
