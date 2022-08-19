@@ -2,7 +2,7 @@ import React from "react";
 import { useDrag, useDrop } from "../src";
 
 export function App() {
-  const [dragRef, previewRef] = useDrag({
+  const dragRef = useDrag({
     type: 4,
     item: { content: "hello" },
     onStart: () => {
@@ -10,10 +10,13 @@ export function App() {
     },
     onEnd: () => {
       console.log("on end");
-    }
+    },
+    // renderPreview(item) {
+    //   return <p>{item.content}</p>;
+    // }
   });
 
-  const [dragRef1] = useDrag({
+  const dragRef1 = useDrag({
     type: 1,
     item: { content: "world" },
     onStart: () => {
@@ -53,7 +56,6 @@ export function App() {
       <p ref={dragRef1} style={{ cursor: "move" }} draggable={true}>
         Start editing to see some magic happen :)
       </p>
-      <p ref={previewRef}>my preview</p>
       <canvas></canvas>
     </div>
   );
