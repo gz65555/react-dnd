@@ -13,7 +13,7 @@ import { useDrag, useDrop, DragDropContextProvider } from "@oasis-engine/react-d
 
 function App() {
   const [dragRef, previewRef] = useDrag({
-    type: 1,
+    layer: 1,
     item: { content: "world" },
     onStart: () => {
       console.log("drag start");

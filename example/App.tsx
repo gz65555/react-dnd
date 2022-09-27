@@ -3,7 +3,7 @@ import { useDrag, useDrop } from "../src";
 
 export function App() {
   const dragRef = useDrag({
-    type: 4,
+    layer: 4,
     item: { content: "hello" },
     onStart: () => {
       console.log("drag start");
@@ -11,13 +11,13 @@ export function App() {
     onEnd: () => {
       console.log("on end");
     },
-    // renderPreview(item) {
-    //   return <p>{item.content}</p>;
-    // }
+    renderPreview(item) {
+      return <p>{item.content}</p>;
+    }
   });
 
   const dragRef1 = useDrag({
-    type: 1,
+    layer: 1,
     item: { content: "world" },
     onStart: () => {
       console.log("drag start");

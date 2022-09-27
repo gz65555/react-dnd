@@ -7,11 +7,11 @@ import pkg from "./package.json";
 export default defineConfig({
   plugins: [
     react(),
-    viteExternalsPlugin({
-      react: "React",
-      "react-dom": "ReactDOM",
-      lazy: ["React", "lazy"]
-    })
+    // viteExternalsPlugin({
+    //   react: "React",
+    //   "react-dom": "ReactDOM",
+    //   lazy: ["React", "lazy"]
+    // })
   ],
   build: {
     minify: false,

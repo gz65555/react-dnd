@@ -4,9 +4,9 @@ import { DragContext, DragState } from "./DragContext";
 
 export interface IDragOptions<T> {
   /**
-   * The type of the item that can be dropped.
+   * The layer of the item that can be dropped, use binary operation.
    */
-  type: number;
+  layer: number;
   /**
    * The data item that is being dragged.
    */
@@ -31,7 +31,7 @@ export interface IDragOptions<T> {
 
 export function useDrag<T>(options: IDragOptions<T>): RefObject<any> {
   const dragRef = useRef<HTMLDivElement>(null);
-  const { type, item, onEnd, onStart, onCancel, renderPreview } = options;
+  const { layer: type, item, onEnd, onStart, onCancel, renderPreview } = options;
 
   const dragItem = useContext(DragContext);
 
