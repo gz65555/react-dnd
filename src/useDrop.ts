@@ -38,43 +38,43 @@ export function useDrop(options: IDropOptions<any>) {
     const { accept, onDrop, onLeave, onEnter, onOver } = options;
 
     const handleDragOver = (e: DragEvent) => {
-      if (accept & dragItem.current.type) {
+      if (accept & dragItem.type) {
         e.stopImmediatePropagation();
         e.preventDefault();
         e.dataTransfer!.dropEffect = "move";
         if (onOver) {
-          onOver(e, dragItem.current.item);
+          onOver(e, dragItem.item);
         }
       }
     };
 
     const handleDragEnter = (e: DragEvent) => {
-      if (accept & dragItem.current.type) {
+      if (accept & dragItem.type) {
         e.stopImmediatePropagation();
         e.preventDefault();
         if (onEnter) {
-          onEnter(e, dragItem.current.item);
+          onEnter(e, dragItem.item);
         }
       }
     };
 
     const handleDragLeave = (e: DragEvent) => {
-      if (accept & dragItem.current.type) {
+      if (accept & dragItem.type) {
         e.preventDefault();
         e.stopImmediatePropagation();
         if (onLeave) {
-          onLeave(e, dragItem.current.item);
+          onLeave(e, dragItem.item);
         }
       }
     };
 
     const handleDrop = (e: DragEvent) => {
-      if (accept & dragItem.current.type) {
-        dragItem.current.state = DragState.Dropped;
+      if (accept & dragItem.type) {
+        dragItem.state = DragState.Dropped;
         e.preventDefault();
         e.stopImmediatePropagation();
         if (onDrop) {
-          onDrop(e, dragItem.current.item);
+          onDrop(e, dragItem.item);
         }
       }
     };

@@ -1,4 +1,4 @@
-import React, { createContext, MutableRefObject, PropsWithChildren, useRef } from "react";
+import React, { createContext, createRef, MutableRefObject, PropsWithChildren, useRef } from "react";
 
 export enum DragState {
   None = "none",
@@ -15,9 +15,11 @@ interface IDndContextValue<T = any> {
   state: DragState;
 }
 
-export const DragContext = createContext<MutableRefObject<IDndContextValue>>({
-  current: { type: -1, item: null, state: DragState.None }
-});
+export const DragContext = createContext({ item: null } as IDndContextValue);
+
+const dragItemRef = createRef<IDndContextValue>();
+// @ts-ignore
+dragItemRef.current = { item: null };
 
 /**
  * DragContext.Provider
@@ -25,7 +27,5 @@ export const DragContext = createContext<MutableRefObject<IDndContextValue>>({
  * @returns
  */
 export function DragDropContextProvider(props: PropsWithChildren) {
-  const dragItemRef = useRef<IDndContextValue>({ type: -1, item: null, state: DragState.None });
-
-  return <DragContext.Provider value={dragItemRef}>{props.children}</DragContext.Provider>;
+  return <DragContext.Provider value={dragItemRef.current!}>{props.children}</DragContext.Provider>;
 }

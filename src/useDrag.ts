@@ -49,10 +49,9 @@ export function useDrag<T>(options: IDragOptions<T>): IDragReturnType {
       const dataTransfer = e.dataTransfer!;
       dataTransfer.effectAllowed = "move";
 
-      const { current } = dragItem;
-      current.state = DragState.Dragging;
-      current.type = type;
-      current.item = item;
+      dragItem.state = DragState.Dragging;
+      dragItem.type = type;
+      dragItem.item = item;
 
       if (previewRef.current) {
         dataTransfer.setDragImage(previewRef.current, 0, 0);
@@ -66,9 +65,8 @@ export function useDrag<T>(options: IDragOptions<T>): IDragReturnType {
     const handleDragEnd = (e: DragEvent) => {
       e.preventDefault();
       e.stopImmediatePropagation();
-      const { current } = dragItem;
-      if (current.state !== DragState.Dropped) {
-        current.state = DragState.Cancelled;
+      if (dragItem.state !== DragState.Dropped) {
+        dragItem.state = DragState.Cancelled;
         if (onCancel) {
           onCancel(e, item);
         }
