@@ -2,8 +2,8 @@ import React from "react";
 import { useDrag, useDrop } from "../src";
 
 export function App() {
-  const dragRef = useDrag({
-    layer: 4,
+  const [dragRef, previewRef] = useDrag({
+    type: 4,
     item: { content: "hello" },
     onStart: () => {
       console.log("drag start");
@@ -11,13 +11,10 @@ export function App() {
     onEnd: () => {
       console.log("on end");
     },
-    renderPreview(item) {
-      return <p>{item.content}</p>;
-    }
   });
 
-  const dragRef1 = useDrag({
-    layer: 1,
+  const [dragRef1, previewRef1] = useDrag({
+    type: 1,
     item: { content: "world" },
     onStart: () => {
       console.log("drag start");
@@ -34,14 +31,12 @@ export function App() {
       console.log("on drop");
     },
     onEnter: (item) => {
-      console.log("on enter");
+      console.log("on enter", item);
     },
     onLeave: (item) => {
       console.log("on leave");
     },
     onOver(e, item) {
-      console.log("over", e.offsetX, e.offsetY);
-      console.log("data", item);
     }
   });
 
