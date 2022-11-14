@@ -19,7 +19,7 @@ export const DragContext = createContext({ item: null } as IDndContextValue);
 
 const dragItemRef = createRef<IDndContextValue>();
 // @ts-ignore
-dragItemRef.current = { item: null };
+dragItemRef.current = { item: null, type: -1, state: DragState.None };
 
 /**
  * DragContext.Provider
