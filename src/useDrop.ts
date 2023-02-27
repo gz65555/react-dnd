@@ -24,8 +24,8 @@ export interface IDropOptions<T> {
   onOver?: (e: DragEvent, item: T) => void;
 }
 
-export function useDrop(options: IDropOptions<any>) {
-  const dropRef = React.createRef<any>();
+export function useDrop<T extends HTMLElement, U = any>(options: IDropOptions<U>) {
+  const dropRef = React.createRef<T>();
 
   const dragItem = React.useContext(DragContext);
 
